@@ -12,19 +12,19 @@ const product = {
   attributes: { capacity: 20 },
   categories: {
     "en-US": { lvl0: ["Equipment"] },
-    "es-ES": { lvl0: ["Equipos"] },
+    "fr-CA": { lvl0: ["Équipement"] },
   },
   categoryKeys: {
     "en-US": ["equipment"],
-    "es-ES": ["equipment"],
+    "fr-CA": ["equipment"],
   },
   description: {
     "en-US": "Built for heavy work",
-    "es-ES": "Construida para trabajos pesados",
+    "fr-CA": "Conçue pour les travaux lourds",
   },
-  name: { "en-US": "Excavator", "es-ES": "Excavadora" },
+  name: { "en-US": "Excavator", "fr-CA": "Excavatrice" },
   objectID: "product-1",
-  slug: { "en-US": "excavator", "es-ES": "excavadora" },
+  slug: { "en-US": "excavator", "fr-CA": "excavatrice" },
   variants: [
     {
       attributes: { model: 100 },
@@ -37,18 +37,18 @@ const product = {
       ],
       isInStock: true,
       prices: {
-        EUR: {
+        CAD: {
           min: 7000,
           priceValues: [
             {
               channelID: "north-america-id",
-              id: "public-price-eur",
+              id: "public-price-cad",
               value: 9000,
             },
             {
               channelID: "north-america-id",
               customerGroupID: "contractors-id",
-              id: "contractor-price-eur",
+              id: "contractor-price-cad",
               value: 7000,
             },
           ],
@@ -106,38 +106,38 @@ describe(transform, () => {
         categories: [
           {
             key: "equipment",
-            label: { "en-US": "Equipment", "es-ES": "Equipos" },
+            label: { "en-US": "Equipment", "fr-CA": "Équipement" },
           },
         ],
         category: {
           "en-US": ["equipment"],
-          "es-ES": ["equipment"],
+          "fr-CA": ["equipment"],
         },
         objectID: "product-1",
-        price: { EUR: 90, USD: 100 },
+        price: { CAD: 90, USD: 100 },
         priceAudienceIds: ["public"],
         productCard: {
           availableForSale: true,
           id: "product-1",
-          slug: { "en-US": "excavator", "es-ES": "excavadora" },
+          slug: { "en-US": "excavator", "fr-CA": "excavatrice" },
           startingPrice: {
-            EUR: { centAmount: 9000, currencyCode: "EUR" },
+            CAD: { centAmount: 9000, currencyCode: "CAD" },
             USD: { centAmount: 10_000, currencyCode: "USD" },
           },
-          title: { "en-US": "Excavator", "es-ES": "Excavadora" },
+          title: { "en-US": "Excavator", "fr-CA": "Excavatrice" },
         },
         variants: [{ attributes: { model: 100 }, id: "variant-1" }],
       },
       {
         objectID: "product-1--group%3Acontractors-id",
-        price: { EUR: 70, USD: 80 },
+        price: { CAD: 70, USD: 80 },
         priceAudienceIds: ["group:contractors-id"],
         productCard: {
           regularStartingPrice: {
             USD: { centAmount: 9000, currencyCode: "USD" },
           },
           startingPrice: {
-            EUR: { centAmount: 7000, currencyCode: "EUR" },
+            CAD: { centAmount: 7000, currencyCode: "CAD" },
             USD: { centAmount: 8000, currencyCode: "USD" },
           },
         },

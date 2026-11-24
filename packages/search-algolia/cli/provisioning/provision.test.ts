@@ -1,7 +1,7 @@
 import { CommandProgress, makeProgress } from "@repo/cli-core/command-output";
 import { RuntimeEnvironmentPublisher } from "@repo/cli-core/runtime-environment";
 import type { RuntimeEnvironmentValues } from "@repo/cli-core/runtime-environment";
-import { storeConfiguration } from "@repo/commerce-core/store";
+import { CommerceLocale, StoreKey } from "@repo/commerce-core/store";
 import { createCanonicalContentSearchProjection } from "@repo/search/content-search-projection";
 import type { ContentSearchProjection } from "@repo/search/content-search-projection";
 import { Effect, Layer, Redacted } from "effect";
@@ -19,6 +19,36 @@ import {
   searchRuntimeEnvironment,
   searchRuntimeEnvironmentManifest,
 } from "./runtime-credentials";
+
+// This fixed graph deliberately exercises a market outside this site's generated
+// connector bindings; keep those fixture bindings local to this test module.
+vi.mock("../../connector/commercetools/generated-product", async (importOriginal) => {
+  const actual = await importOriginal<
+    typeof import("../../connector/commercetools/generated-product")
+  >();
+  return {
+    ...actual,
+    algoliaConnectorCurrency: (currency: string) =>
+      currency === "EUR" ? currency : actual.algoliaConnectorCurrency(currency),
+    algoliaConnectorLocale: (locale: string) =>
+      locale === "de-DE" ? locale : actual.algoliaConnectorLocale(locale),
+  };
+});
+
+const fixtureStorefronts = [
+  {
+    storeKey: StoreKey.make("default-store"),
+    locale: CommerceLocale.make("en-US"),
+    currency: "USD",
+    isDefault: true,
+  },
+  {
+    storeKey: StoreKey.make("germany-fixture"),
+    locale: CommerceLocale.make("de-DE"),
+    currency: "EUR",
+    isDefault: true,
+  },
+];
 
 describe(provisionAlgolia, () => {
   it("omits the runtime prefix variable for unprefixed indices", () => {
@@ -153,7 +183,7 @@ describe(provisionAlgolia, () => {
     };
     const locales = ["en-US", "de-DE"] as const;
     const selectedLocales = new Set<string>(locales);
-    const configuredStorefronts = storeConfiguration.filter(({ locale }) =>
+    const configuredStorefronts = fixtureStorefronts.filter(({ locale }) =>
       selectedLocales.has(locale)
     );
     const contentSearchableAttributes = vi.fn<
@@ -173,7 +203,7 @@ describe(provisionAlgolia, () => {
         "acceptance",
         locales,
         contentProjection,
-        storeConfiguration
+        fixtureStorefronts
       )
     );
     const TestLayer = Layer.mergeAll(
@@ -231,7 +261,7 @@ describe(provisionAlgolia, () => {
             provisionAlgoliaProducts(indexGraph, commerceConnectorSource, [
               "contractors-id",
             ]),
-          storefronts: storeConfiguration,
+          storefronts: fixtureStorefronts,
         },
       });
       return { receipt: provisioningReceipt };
@@ -324,7 +354,7 @@ describe(provisionAlgolia, () => {
           provisionAlgoliaProducts(indexGraph, commerceConnectorSource, [
             "contractors-id",
           ]),
-        storefronts: storeConfiguration,
+        storefronts: fixtureStorefronts,
       },
     }).pipe(Effect.provide(ProvisionTestLayer), Effect.runPromise);
 
@@ -345,7 +375,7 @@ describe(provisionAlgolia, () => {
           provisionAlgoliaProducts(indexGraph, commerceConnectorSource, [
             "contractors-id",
           ]),
-        storefronts: storeConfiguration,
+        storefronts: fixtureStorefronts,
       },
     }).pipe(Effect.provide(ProvisionTestLayer), Effect.runPromise);
 

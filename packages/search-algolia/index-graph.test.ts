@@ -1,4 +1,4 @@
-import { storeConfiguration } from "@repo/commerce-core/store";
+import { CommerceLocale, StoreKey, storeConfiguration } from "@repo/commerce-core/store";
 import {
   createCanonicalContentSearchProjection,
   defineContentSearchProjection,
@@ -11,6 +11,22 @@ import {
   createAlgoliaSearchIndices,
 } from "./index-graph";
 
+const defaultStorefront = {
+  storeKey: StoreKey.make("default-store"),
+  locale: CommerceLocale.make("en-US"),
+  currency: "USD",
+  isDefault: true,
+};
+const fixtureStorefronts = [
+  defaultStorefront,
+  {
+    storeKey: StoreKey.make("germany-fixture"),
+    locale: CommerceLocale.make("de-DE"),
+    currency: "EUR",
+    isDefault: true,
+  },
+];
+
 const contentProjection = (deployment: string) =>
   createCanonicalContentSearchProjection(`${deployment}--content`);
 
@@ -21,7 +37,7 @@ describe(createAlgoliaIndexGraph, () => {
         "",
         ["en-US"],
         createCanonicalContentSearchProjection("content"),
-        storeConfiguration
+        fixtureStorefronts
       )
     );
 
@@ -142,7 +158,7 @@ describe(createAlgoliaIndexGraph, () => {
         "demo",
         ["en-US", "de-DE"],
         contentProjection("demo"),
-        storeConfiguration
+        fixtureStorefronts
       )
     );
 
@@ -160,7 +176,7 @@ describe(createAlgoliaIndexGraph, () => {
         "demo",
         ["en-US", "de-DE"],
         localeSpecificProjection,
-        storeConfiguration
+        fixtureStorefronts
       )
     );
 
@@ -203,7 +219,7 @@ describe(createAlgoliaIndexGraph, () => {
         "invalid--prefix",
         ["en-US"],
         contentProjection("invalid"),
-        storeConfiguration
+        fixtureStorefronts
       ).pipe(Effect.flip)
     );
 
@@ -236,7 +252,7 @@ describe(createAlgoliaIndexGraph, () => {
         "development",
         ["fr-CA"],
         contentProjection("development"),
-        storeConfiguration
+        [defaultStorefront]
       )
     );
 

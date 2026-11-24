@@ -13,7 +13,7 @@ describe("Algolia index settings", () => {
       sort: "price-asc",
       storefronts: [
         { currency: "USD", locale: "en-US" },
-        { currency: "EUR", locale: "es-ES" },
+        { currency: "CAD", locale: "fr-CA" },
       ],
     });
 
@@ -22,18 +22,18 @@ describe("Algolia index settings", () => {
       "unordered(productCard.description.en-US)",
       "unordered(categories.label.en-US)",
       "unordered(attributeFacets.en-US)",
-      "productCard.title.es-ES",
-      "unordered(productCard.description.es-ES)",
-      "unordered(categories.label.es-ES)",
-      "unordered(attributeFacets.es-ES)",
+      "productCard.title.fr-CA",
+      "unordered(productCard.description.fr-CA)",
+      "unordered(categories.label.fr-CA)",
+      "unordered(attributeFacets.fr-CA)",
     ]);
     expect(settings.attributesForFaceting).toEqual(
       expect.arrayContaining([
         "searchable(category.en-US)",
-        "searchable(category.es-ES)",
+        "searchable(category.fr-CA)",
         "availability",
         "price.USD",
-        "price.EUR",
+        "price.CAD",
         "filterOnly(priceAudienceIds)",
       ])
     );
@@ -41,7 +41,7 @@ describe("Algolia index settings", () => {
     for (const { id, control } of PRODUCT_DISCOVERY.facets.filter(({ id }) =>
       id.startsWith("attribute.")
     )) {
-      const field = `attributeFacets.es-ES.${id.slice("attribute.".length)}`;
+      const field = `attributeFacets.fr-CA.${id.slice("attribute.".length)}`;
       expect(settings.attributesForFaceting).toContain(
         control === "range" ? field : `searchable(${field})`
       );

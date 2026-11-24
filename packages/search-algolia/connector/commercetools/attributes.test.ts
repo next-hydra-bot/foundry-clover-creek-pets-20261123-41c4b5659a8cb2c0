@@ -41,10 +41,10 @@ const record = {
     {
       attributes: {
         capacity: 0,
-        color: { key: "BLUE", label: { "en-US": "Blue", "fr-FR": "Bleu" } },
+        color: { key: "BLUE", label: { "en-US": "Blue", "fr-CA": "Bleu" } },
         count: 0,
         insulated: false,
-        instruction: { "en-US": "Wash cold", "fr-FR": "Laver à froid" },
+        instruction: { "en-US": "Wash cold", "fr-CA": "Laver à froid" },
         relatedProducts: [
           { id: "related-product", typeId: "product" as const },
         ],
@@ -104,8 +104,8 @@ describe("commercetools Product Model search facets", () => {
         relatedProducts: ["related-product"],
         tags: ["outdoor", "washable"],
       },
-      "fr-FR": { instruction: ["Laver à froid"], color: ["BLUE", "RED"] },
-      "en-GB": { instruction: ["Wash cold"] },
+      "fr-CA": { instruction: ["Laver à froid"], color: ["BLUE", "RED"] },
+      "en-CA": { instruction: ["Wash cold"] },
     });
     expect(documents[1]?.attributeFacets).toEqual(
       documents[0]?.attributeFacets
@@ -136,7 +136,7 @@ describe("commercetools Product Model search facets", () => {
               required: false,
               labels: { "en-US": "Color" },
               values: [
-                { key: "BLUE", labels: { "en-US": "Blue", "fr-FR": "Bleu" } },
+                { key: "BLUE", labels: { "en-US": "Blue", "fr-CA": "Bleu" } },
               ],
             },
           ],
@@ -149,9 +149,9 @@ describe("commercetools Product Model search facets", () => {
         results: [
           {
             hits: [],
-            facets: { "attributeFacets.fr-FR.color": { BLUE: 1 } },
+            facets: { "attributeFacets.fr-CA.color": { BLUE: 1 } },
             facets_stats: {
-              "attributeFacets.fr-FR.capacity": {
+              "attributeFacets.fr-CA.capacity": {
                 min: 0,
                 max: 20,
                 avg: 10,
@@ -172,7 +172,7 @@ describe("commercetools Product Model search facets", () => {
       },
       priceCustomerGroupIds: ["gold"],
       productFacetFields: () =>
-        algoliaProductFacetFields("fr-FR", "USD", model),
+        algoliaProductFacetFields("fr-CA", "USD", model),
     });
     const result = await provider.search(
       [
@@ -186,7 +186,7 @@ describe("commercetools Product Model search facets", () => {
         },
       ],
       {
-        locale: "fr-FR",
+        locale: "fr-CA",
         product: {
           currency: "USD",
           storeKey: "test",
@@ -201,16 +201,16 @@ describe("commercetools Product Model search facets", () => {
             {
               filters: 'priceAudienceIds:"group:gold"',
               facets: [
-                "attributeFacets.fr-FR.color",
-                "attributeFacets.fr-FR.capacity",
+                "attributeFacets.fr-CA.color",
+                "attributeFacets.fr-CA.capacity",
               ],
-              facetFilters: ["attributeFacets.fr-FR.color:BLUE"],
-              numericFilters: ["attributeFacets.fr-FR.capacity>=0"],
+              facetFilters: ["attributeFacets.fr-CA.color:BLUE"],
+              numericFilters: ["attributeFacets.fr-CA.capacity>=0"],
               restrictSearchableAttributes: [
-                "productCard.title.fr-FR",
-                "productCard.description.fr-FR",
-                "categories.label.fr-FR",
-                "attributeFacets.fr-FR",
+                "productCard.title.fr-CA",
+                "productCard.description.fr-CA",
+                "categories.label.fr-CA",
+                "attributeFacets.fr-CA",
               ],
             },
           ],

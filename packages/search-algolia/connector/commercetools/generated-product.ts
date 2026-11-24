@@ -5,17 +5,16 @@ import type { FieldPath } from "@repo/commerce-core/product";
 
 export const ALGOLIA_CONNECTOR_LOCALES = [
   "en-US",
-  "en-GB",
-  "es-ES",
-  "fr-FR",
-  "de-DE",
-  "it-IT",
-  "pt-PT",
-  "nl-NL",
+  "en-CA",
+  "fr-CA",
 ] as const;
-export type AlgoliaConnectorLocale = (typeof ALGOLIA_CONNECTOR_LOCALES)[number];
+export type AlgoliaConnectorLocale =
+  (typeof ALGOLIA_CONNECTOR_LOCALES)[number];
 
-export const ALGOLIA_CONNECTOR_CURRENCIES = ["USD", "GBP", "EUR"] as const;
+export const ALGOLIA_CONNECTOR_CURRENCIES = [
+  "USD",
+  "CAD",
+] as const;
 export type AlgoliaConnectorCurrency =
   (typeof ALGOLIA_CONNECTOR_CURRENCIES)[number];
 
@@ -64,37 +63,23 @@ export interface AlgoliaCommercetoolsProductReference {
 }
 
 export interface AlgoliaCommercetoolsRootAttributes {
-  readonly capacity?: number;
-  readonly iso45001?: boolean;
-  readonly mobility?:
-    | AlgoliaCommercetoolsEnumValue
-    | string
-    | AlgoliaCommercetoolsEnumValue
-    | string;
-  readonly relatedProducts?:
-    | readonly (AlgoliaCommercetoolsProductReference | string)[]
-    | readonly (AlgoliaCommercetoolsProductReference | string)[];
+  readonly "capacity"?: number;
+  readonly "iso45001"?: boolean;
+  readonly "mobility"?: AlgoliaCommercetoolsEnumValue | LocalizedStringByAlgoliaConnectorLocale | string | AlgoliaCommercetoolsEnumValue | LocalizedStringByAlgoliaConnectorLocale | string;
+  readonly "relatedProducts"?: readonly (AlgoliaCommercetoolsProductReference | string)[] | readonly (AlgoliaCommercetoolsProductReference | string)[];
 }
 
 export interface AlgoliaCommercetoolsVariantAttributes {
-  readonly capacity?: number;
-  readonly care?: string;
-  readonly color?:
-    | AlgoliaCommercetoolsEnumValue
-    | LocalizedStringByAlgoliaConnectorLocale
-    | string
-    | AlgoliaCommercetoolsEnumValue
-    | string;
-  readonly insulated?: boolean;
-  readonly material?: string;
-  readonly model?: number;
-  readonly relatedProducts?: readonly (
-    | AlgoliaCommercetoolsProductReference
-    | string
-  )[];
-  readonly size?: AlgoliaCommercetoolsEnumValue | string;
-  readonly volumeMl?: number;
-  readonly weightGrams?: number;
+  readonly "capacity"?: number;
+  readonly "care"?: string;
+  readonly "color"?: AlgoliaCommercetoolsEnumValue | LocalizedStringByAlgoliaConnectorLocale | string | AlgoliaCommercetoolsEnumValue | LocalizedStringByAlgoliaConnectorLocale | string;
+  readonly "insulated"?: boolean;
+  readonly "material"?: string;
+  readonly "model"?: number;
+  readonly "relatedProducts"?: readonly (AlgoliaCommercetoolsProductReference | string)[];
+  readonly "size"?: AlgoliaCommercetoolsEnumValue | string;
+  readonly "volumeMl"?: number;
+  readonly "weightGrams"?: number;
 }
 
 export interface AlgoliaCommercetoolsRawPriceValue {
@@ -121,9 +106,7 @@ export interface AlgoliaCommercetoolsImageObject {
   readonly url: string;
 }
 
-export type AlgoliaCommercetoolsImage =
-  | string
-  | AlgoliaCommercetoolsImageObject;
+export type AlgoliaCommercetoolsImage = string | AlgoliaCommercetoolsImageObject;
 
 export interface AlgoliaCommercetoolsRawVariant {
   readonly attributes?: AlgoliaCommercetoolsVariantAttributes;
@@ -140,7 +123,10 @@ export interface AlgoliaCommercetoolsRawVariant {
 export interface AlgoliaCommercetoolsRawProduct {
   readonly attributes?: AlgoliaCommercetoolsRootAttributes;
   readonly categories?: Partial<
-    Record<AlgoliaConnectorLocale, Readonly<Record<string, readonly string[]>>>
+    Record<
+      AlgoliaConnectorLocale,
+      Readonly<Record<string, readonly string[]>>
+    >
   >;
   readonly categoryKeys?: Partial<
     Record<AlgoliaConnectorLocale, readonly string[]>
@@ -173,9 +159,7 @@ export interface AlgoliaProductCardRecord {
   };
   readonly id: string;
   readonly slug: LocalizedStringByAlgoliaConnectorLocale;
-  readonly regularStartingPrice?: Partial<
-    Record<AlgoliaConnectorCurrency, AlgoliaProductMoney>
-  >;
+  readonly regularStartingPrice?: Partial<Record<AlgoliaConnectorCurrency, AlgoliaProductMoney>>;
   readonly startingPrice?: Partial<
     Record<AlgoliaConnectorCurrency, AlgoliaProductMoney>
   >;
@@ -192,15 +176,14 @@ export interface AlgoliaProductVariantRecord {
 /** Provider record stored once per Product price-audience slice. */
 export interface AlgoliaProductRecord {
   readonly attributeFacets: Partial<
-    Record<
-      AlgoliaConnectorLocale,
-      Readonly<Record<string, readonly (boolean | number | string)[]>>
-    >
+    Record<AlgoliaConnectorLocale, Readonly<Record<string, readonly (boolean | number | string)[]>>>
   >;
   readonly attributes?: AlgoliaCommercetoolsRootAttributes;
   readonly availability: "in-stock" | "out-of-stock";
   readonly categories: readonly AlgoliaProductCategory[];
-  readonly category: Partial<Record<AlgoliaConnectorLocale, readonly string[]>>;
+  readonly category: Partial<
+    Record<AlgoliaConnectorLocale, readonly string[]>
+  >;
   readonly priceAudienceIds: readonly string[];
   readonly objectID: string;
   readonly price?: Partial<Record<AlgoliaConnectorCurrency, number>>;
