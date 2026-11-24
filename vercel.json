@@ -20,6 +20,18 @@
   },
   "rewrites": [
     {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "foundry-clover-creek-pets-2026-api.vercel.app"
+        }
+      ],
+      "destination": {
+        "service": "api"
+      }
+    },
+    {
       "source": "/.well-known/workflow/v1/(.*)",
       "destination": {
         "service": "api"
@@ -38,10 +50,69 @@
       }
     },
     {
-      "source": "/(.*)",
+      "source": "/_next/image",
+      "destination": "/_vercel/image"
+    },
+    {
+      "source": "/((?!_(?:next|vercel)/image/?$).*)",
       "destination": {
         "service": "web"
       }
     }
-  ]
+  ],
+  "images": {
+    "sizes": [
+      32,
+      48,
+      64,
+      96,
+      128,
+      256,
+      384,
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1920,
+      2048,
+      3840
+    ],
+    "domains": [],
+    "remotePatterns": [
+      {
+        "protocol": "https",
+        "hostname": "^images\\.contentstack\\.io$"
+      },
+      {
+        "protocol": "https",
+        "hostname": "^img\\.clerk\\.com$"
+      },
+      {
+        "protocol": "https",
+        "hostname": "^storage\\.googleapis\\.com$"
+      },
+      {
+        "protocol": "https",
+        "hostname": "^placehold\\.co$"
+      },
+      {
+        "protocol": "https",
+        "hostname": "^images\\.cdn\\.us-central1\\.gcp\\.commercetools\\.com$"
+      },
+      {
+        "protocol": "https",
+        "hostname": "^cdn\\.shopify\\.com$",
+        "pathname": "^/s/files/.*$"
+      }
+    ],
+    "minimumCacheTTL": 14400,
+    "qualities": [
+      75
+    ],
+    "formats": [
+      "image/avif",
+      "image/webp"
+    ]
+  }
 }
