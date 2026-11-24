@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { configurePortlessEnvironment } from "./portless";
 
@@ -18,6 +18,12 @@ const initialEnvironment = new Map(
 );
 
 describe("configurePortlessEnvironment", () => {
+  beforeEach(() => {
+    for (const key of CONFIGURED_ENVIRONMENT_KEYS) {
+      Reflect.deleteProperty(process.env, key);
+    }
+  });
+
   afterEach(() => {
     vi.unstubAllEnvs();
 
@@ -42,7 +48,7 @@ describe("configurePortlessEnvironment", () => {
 
   it("allows deliberate mixed local and remote development", () => {
     vi.stubEnv("PORTLESS_AUTO_ENV", "0");
-    vi.stubEnv("PORTLESS_URL", "https://web.storefront.localhost");
+    vi.stubEnv("PORTLESS_URL", "https://web.qa-shop.localhost");
     vi.stubEnv("NEXT_PUBLIC_API_URL", "https://api.example.test");
 
     configurePortlessEnvironment("web");
@@ -51,50 +57,50 @@ describe("configurePortlessEnvironment", () => {
   });
 
   it("wires the primary web checkout to sibling services", () => {
-    vi.stubEnv("PORTLESS_URL", "https://web.storefront.localhost");
+    vi.stubEnv("PORTLESS_URL", "https://web.qa-shop.localhost");
 
     configurePortlessEnvironment("web");
 
     expect(process.env).toMatchObject({
-      ADMIN_CLERK_AUTHORIZED_PARTIES: "https://admin.storefront.localhost",
-      ADMIN_URL: "https://admin.storefront.localhost",
-      CLERK_AUTHORIZED_PARTIES: "https://web.storefront.localhost",
-      NEXT_PUBLIC_API_URL: "https://api.clover-creek-pets-20261123.localhost",
-      NEXT_PUBLIC_WEB_URL: "https://web.storefront.localhost",
+      ADMIN_CLERK_AUTHORIZED_PARTIES: "https://admin.qa-shop.localhost",
+      ADMIN_URL: "https://admin.qa-shop.localhost",
+      CLERK_AUTHORIZED_PARTIES: "https://web.qa-shop.localhost",
+      NEXT_PUBLIC_API_URL: "https://api.qa-shop.localhost",
+      NEXT_PUBLIC_WEB_URL: "https://web.qa-shop.localhost",
       NEXT_PUBLIC_WORKOS_REDIRECT_URI:
-        "https://web.storefront.localhost/api/auth/callback",
-      VERCEL_PROJECT_PRODUCTION_URL: "web.storefront.localhost",
+        "https://web.qa-shop.localhost/api/auth/callback",
+      VERCEL_PROJECT_PRODUCTION_URL: "web.qa-shop.localhost",
     });
   });
 
   it("preserves a manually configured API origin while deriving other URLs", () => {
-    vi.stubEnv("PORTLESS_URL", "https://feature.api.storefront.localhost");
+    vi.stubEnv("PORTLESS_URL", "https://feature.api.qa-shop.localhost");
     vi.stubEnv("NEXT_PUBLIC_API_URL", "https://public-api.example.test");
 
     configurePortlessEnvironment("api");
 
     expect(process.env).toMatchObject({
-      ADMIN_URL: "https://feature.admin.storefront.localhost",
+      ADMIN_URL: "https://feature.admin.qa-shop.localhost",
       NEXT_PUBLIC_API_URL: "https://public-api.example.test",
-      NEXT_PUBLIC_WEB_URL: "https://feature.web.storefront.localhost",
+      NEXT_PUBLIC_WEB_URL: "https://feature.web.qa-shop.localhost",
     });
   });
 
   it("preserves worktree prefixes and a custom proxy port", () => {
     vi.stubEnv(
       "PORTLESS_URL",
-      "https://fix-auth.api.storefront.localhost:1355"
+      "https://fix-auth.api.qa-shop.localhost:1355"
     );
-    vi.stubEnv("NEXT_PUBLIC_API_URL", "https://api.clover-creek-pets-20261123.localhost");
+    vi.stubEnv("NEXT_PUBLIC_API_URL", "https://api.qa-shop.localhost");
 
     configurePortlessEnvironment("api");
 
     expect(process.env).toMatchObject({
-      ADMIN_URL: "https://fix-auth.admin.storefront.localhost:1355",
-      NEXT_PUBLIC_API_URL: "https://fix-auth.api.storefront.localhost:1355",
-      NEXT_PUBLIC_WEB_URL: "https://fix-auth.web.storefront.localhost:1355",
+      ADMIN_URL: "https://fix-auth.admin.qa-shop.localhost:1355",
+      NEXT_PUBLIC_API_URL: "https://fix-auth.api.qa-shop.localhost:1355",
+      NEXT_PUBLIC_WEB_URL: "https://fix-auth.web.qa-shop.localhost:1355",
       NEXT_PUBLIC_WORKOS_REDIRECT_URI:
-        "https://fix-auth.web.storefront.localhost:1355/api/auth/callback",
+        "https://fix-auth.web.qa-shop.localhost:1355/api/auth/callback",
     });
   });
 
@@ -111,32 +117,32 @@ describe("configurePortlessEnvironment", () => {
   });
 
   it("keeps a matching worktree prefix distinct from the application label", () => {
-    vi.stubEnv("PORTLESS_URL", "https://api.api.storefront.localhost");
+    vi.stubEnv("PORTLESS_URL", "https://api.api.qa-shop.localhost");
 
     configurePortlessEnvironment("api");
 
     expect(process.env).toMatchObject({
-      ADMIN_URL: "https://api.admin.storefront.localhost",
-      NEXT_PUBLIC_API_URL: "https://api.api.storefront.localhost",
-      NEXT_PUBLIC_WEB_URL: "https://api.web.storefront.localhost",
+      ADMIN_URL: "https://api.admin.qa-shop.localhost",
+      NEXT_PUBLIC_API_URL: "https://api.api.qa-shop.localhost",
+      NEXT_PUBLIC_WEB_URL: "https://api.web.qa-shop.localhost",
     });
   });
 
   it("uses the isolated admin origin for admin authentication", () => {
-    vi.stubEnv("PORTLESS_URL", "https://admin.storefront.localhost");
+    vi.stubEnv("PORTLESS_URL", "https://admin.qa-shop.localhost");
 
     configurePortlessEnvironment("admin");
 
     expect(process.env.CLERK_AUTHORIZED_PARTIES).toBe(
-      "https://admin.storefront.localhost"
+      "https://admin.qa-shop.localhost"
     );
     expect(process.env.NEXT_PUBLIC_WORKOS_REDIRECT_URI).toBe(
-      "https://admin.storefront.localhost/api/auth/callback"
+      "https://admin.qa-shop.localhost/api/auth/callback"
     );
   });
 
   it("does not rewrite configuration for an unrelated hostname", () => {
-    vi.stubEnv("PORTLESS_URL", "https://different.storefront.localhost");
+    vi.stubEnv("PORTLESS_URL", "https://different.qa-shop.localhost");
     vi.stubEnv("NEXT_PUBLIC_API_URL", "https://api.example.test");
 
     configurePortlessEnvironment("web");
