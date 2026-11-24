@@ -26,8 +26,8 @@ export const StoreSelector = ({
       options={stores.map((store) => ({
         description: store.currency,
         id: store.locale,
-        label: store.displayName ?? store.storeKey,
-        shortLabel: store.displayCode ?? store.storeKey,
+        label: store.displayName ?? store.locale,
+        shortLabel: `${store.displayCode ?? store.country ?? store.locale} (${store.currency})`,
       }))}
       selectedId={locale}
       onSelect={(id) => {
