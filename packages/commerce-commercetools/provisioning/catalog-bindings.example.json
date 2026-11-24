@@ -1,0 +1,32 @@
+[
+  {
+    "assignmentKey": "earthworks-trade",
+    "distributionChannelKey": "earthworks-sales",
+    "supplyChannelKey": "machinery-stock",
+    "customerGroupKey": "gold-dealers"
+  },
+  {
+    "assignmentKey": "earthworks-service-trade",
+    "distributionChannelKey": "earthworks-sales",
+    "supplyChannelKey": "machinery-stock",
+    "customerGroupKey": "gold-dealers"
+  },
+  {
+    "assignmentKey": "earthworks-parts-trade",
+    "distributionChannelKey": "earthworks-sales",
+    "supplyChannelKey": "machinery-stock",
+    "customerGroupKey": "standard-dealers"
+  },
+  {
+    "assignmentKey": "warehouse-trade",
+    "distributionChannelKey": "warehouse-sales",
+    "supplyChannelKey": "machinery-stock",
+    "customerGroupKey": "standard-dealers"
+  },
+  {
+    "assignmentKey": "france-trade",
+    "distributionChannelKey": "france-sales",
+    "supplyChannelKey": "france-stock",
+    "customerGroupKey": "standard-dealers"
+  }
+]

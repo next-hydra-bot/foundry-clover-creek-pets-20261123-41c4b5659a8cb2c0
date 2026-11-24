@@ -1,0 +1,15 @@
+{
+  "extends": "@repo/typescript-config/effect-nextjs.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "declaration": false,
+    "declarationMap": false,
+    "types": ["node", "next"],
+    "paths": {
+      "@repo/commerce-b2c/*": ["./*"],
+      "@repo/*": ["../*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "**/*.template.*"]
+}

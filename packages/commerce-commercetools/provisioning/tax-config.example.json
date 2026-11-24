@@ -1,0 +1,26 @@
+{
+  "classes": [
+    {
+      "taxClassKey": "standard",
+      "taxCategoryKey": "standard",
+      "rates": [
+        {
+          "key": "demo-us",
+          "name": "Sandbox 10 percent",
+          "country": "US",
+          "amount": 0.1,
+          "includedInPrice": false
+        },
+        {
+          "key": "demo-de",
+          "name": "Sandbox 20 percent",
+          "country": "DE",
+          "amount": 0.2,
+          "includedInPrice": true
+        }
+      ]
+    }
+  ],
+  "shippingMethods": [],
+  "countryTaxRateFallbackEnabled": true
+}

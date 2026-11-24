@@ -1,0 +1,183 @@
+{
+  "key": "outdoor-product",
+  "name": "Outdoor product",
+  "description": "Apparel and equipment with typed material, weight, volume and care attributes. Variant selections are modeled as Product Options.",
+  "attributes": [
+    {
+      "name": "material",
+      "label": {
+        "en-US": "Material",
+        "en-CA": "Material",
+        "fr-CA": "Matériau"
+      },
+      "type": {
+        "name": "text"
+      },
+      "isRequired": true,
+      "attributeConstraint": "None",
+      "inputHint": "SingleLine",
+      "isSearchable": true
+    },
+    {
+      "name": "weightGrams",
+      "label": {
+        "en-US": "Weight (g)",
+        "en-CA": "Weight (g)",
+        "fr-CA": "Poids (g)"
+      },
+      "type": {
+        "name": "number"
+      },
+      "isRequired": true,
+      "attributeConstraint": "None",
+      "inputHint": "SingleLine",
+      "isSearchable": true
+    },
+    {
+      "name": "volumeMl",
+      "label": {
+        "en-US": "Volume (ml)",
+        "en-CA": "Volume (ml)",
+        "fr-CA": "Volume (ml)"
+      },
+      "type": {
+        "name": "number"
+      },
+      "isRequired": false,
+      "attributeConstraint": "None",
+      "inputHint": "SingleLine",
+      "isSearchable": true
+    },
+    {
+      "name": "care",
+      "label": {
+        "en-US": "Care instructions",
+        "en-CA": "Care instructions",
+        "fr-CA": "Consignes d’entretien"
+      },
+      "type": {
+        "name": "text"
+      },
+      "isRequired": false,
+      "attributeConstraint": "None",
+      "inputHint": "SingleLine",
+      "isSearchable": true
+    },
+    {
+      "name": "insulated",
+      "label": {
+        "en-US": "Insulated",
+        "en-CA": "Insulated",
+        "fr-CA": "Isolé"
+      },
+      "type": {
+        "name": "boolean"
+      },
+      "isRequired": false,
+      "attributeConstraint": "None",
+      "inputHint": "SingleLine",
+      "isSearchable": true
+    },
+    {
+      "name": "relatedProducts",
+      "label": {
+        "en-US": "Related products",
+        "en-CA": "Related products",
+        "fr-CA": "Produits connexes"
+      },
+      "type": {
+        "name": "set",
+        "elementType": {
+          "name": "reference",
+          "referenceTypeId": "product"
+        }
+      },
+      "isRequired": false,
+      "attributeConstraint": "None",
+      "isSearchable": false,
+      "inputHint": "SingleLine"
+    },
+    {
+      "name": "size",
+      "label": {
+        "en-US": "Size",
+        "en-CA": "Size",
+        "fr-CA": "Taille"
+      },
+      "type": {
+        "name": "enum",
+        "values": [
+          {
+            "key": "S",
+            "label": "S"
+          },
+          {
+            "key": "M",
+            "label": "M"
+          },
+          {
+            "key": "L",
+            "label": "L"
+          }
+        ]
+      },
+      "isRequired": false,
+      "attributeConstraint": "None",
+      "isSearchable": true,
+      "inputHint": "SingleLine"
+    },
+    {
+      "name": "color",
+      "label": {
+        "en-US": "Color",
+        "en-CA": "Color",
+        "fr-CA": "Couleur"
+      },
+      "type": {
+        "name": "lenum",
+        "values": [
+          {
+            "key": "RED",
+            "label": {
+              "en-US": "Red",
+              "fr-FR": "Rouge",
+              "en-CA": "Red",
+              "fr-CA": "Rouge"
+            }
+          },
+          {
+            "key": "BLUE",
+            "label": {
+              "en-US": "Blue",
+              "fr-FR": "Bleu",
+              "en-CA": "Blue",
+              "fr-CA": "Bleu"
+            }
+          },
+          {
+            "key": "GREEN",
+            "label": {
+              "en-US": "Green",
+              "fr-FR": "Vert",
+              "en-CA": "Green",
+              "fr-CA": "Vert"
+            }
+          },
+          {
+            "key": "BLACK",
+            "label": {
+              "en-US": "Black",
+              "fr-FR": "Noir",
+              "en-CA": "Black",
+              "fr-CA": "Noir"
+            }
+          }
+        ]
+      },
+      "isRequired": false,
+      "attributeConstraint": "None",
+      "isSearchable": true,
+      "inputHint": "SingleLine"
+    }
+  ]
+}

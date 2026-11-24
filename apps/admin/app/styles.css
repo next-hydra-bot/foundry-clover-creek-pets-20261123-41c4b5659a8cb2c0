@@ -1,0 +1,2 @@
+@import "@repo/design-system/styles/globals.css";
+@source "../../../packages/company-registration/**/*.{ts,tsx}";

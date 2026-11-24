@@ -1,0 +1,26 @@
+{
+  "extends": "@repo/typescript-config/effect-nextjs.json",
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+      "@repo/commerce-provider": [
+        "../../packages/commerce-commercetools"
+      ],
+      "@repo/commerce-provider/*": [
+        "../../packages/commerce-commercetools/*"
+      ],
+      "@repo/*": ["../../packages/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "next.config.ts",
+    "**/*.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ]
+}

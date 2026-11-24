@@ -1,0 +1,36 @@
+"use client";
+
+import posthog from "posthog-js";
+import type { PostHog } from "posthog-js";
+import { PostHogProvider as PostHogProviderRaw } from "posthog-js/react";
+import type { ReactNode } from "react";
+import { useEffect } from "react";
+
+import { keys } from "../keys";
+
+type PostHogProviderProps = {
+  readonly children: ReactNode;
+};
+
+export const PostHogProvider = (
+  properties: Omit<PostHogProviderProps, "client">
+) => {
+  const { NEXT_PUBLIC_POSTHOG_HOST: host, NEXT_PUBLIC_POSTHOG_KEY: key } =
+    keys();
+  useEffect(() => {
+    if (!key || !host) return;
+    posthog.init(key, {
+      api_host: "/ingest",
+      capture_pageleave: true, // Overrides the `capture_pageview` setting
+      capture_pageview: false, // Disable automatic pageview capture, as we capture manually
+      person_profiles: "identified_only",
+      ui_host: host,
+    });
+  }, [host, key]);
+
+  if (!key || !host) return properties.children;
+
+  return <PostHogProviderRaw client={posthog} {...properties} />;
+};
+
+export { usePostHog as useAnalytics } from "posthog-js/react";

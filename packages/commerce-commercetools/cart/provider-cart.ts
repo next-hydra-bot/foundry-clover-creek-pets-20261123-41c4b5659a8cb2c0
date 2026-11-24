@@ -1,0 +1,140 @@
+import type {
+  CartLineItemSummaryAttribute,
+  ProductTypeKey,
+} from "@repo/commerce-core/domain/cart-snapshot";
+import type {
+  CheckoutDetails,
+  ShippingAddress,
+} from "@repo/commerce-core/domain/checkout";
+import type { CommerceBusinessUnitId } from "@repo/commerce-core/domain/commerce-account";
+import type { CurrencyCode } from "@repo/commerce-core/domain/money";
+import type { CartDiscount } from "@repo/commerce-core/domain/promotions";
+
+export type CommercetoolsAddress = {
+  readonly additionalStreetInfo?: string | null;
+  readonly city?: string | null;
+  readonly country: string;
+  readonly key?: string | null;
+  readonly postalCode?: string | null;
+  readonly region?: string | null;
+  readonly state?: string | null;
+  readonly streetName?: string | null;
+  readonly streetNumber?: string | null;
+};
+
+export type CommercetoolsMoney = {
+  readonly centAmount: number;
+  readonly currencyCode: CurrencyCode;
+};
+
+export type CommercetoolsPrice = {
+  readonly customerGroup?: { readonly id: string } | null;
+  readonly value: CommercetoolsMoney;
+  readonly discounted: {
+    readonly value: CommercetoolsMoney | null;
+  } | null;
+};
+
+export type CommercetoolsCart = {
+  readonly deletedDiscountCodeIds?: readonly string[];
+  readonly productDiscountsApplied?: boolean;
+  readonly discountCodes?: readonly {
+    readonly id: string;
+    readonly code: string;
+    readonly applicable: boolean;
+  }[];
+  readonly discounts?: readonly CartDiscount[];
+  readonly id: string;
+  readonly version: number;
+  readonly customerId?: string;
+  readonly businessUnitId?: CommerceBusinessUnitId;
+  readonly billingAddress?: ShippingAddress | null;
+  readonly customerEmail?: string | null;
+  readonly store?: {
+    readonly key: string | null;
+  } | null;
+  readonly custom?: {
+    readonly type?: {
+      readonly key: string;
+    } | null;
+    readonly customFieldsRaw?:
+      | readonly {
+          readonly name: string;
+          readonly value: unknown;
+        }[]
+      | null;
+  } | null;
+  readonly lineItems: readonly CommercetoolsLineItem[];
+  readonly paymentIds?: readonly string[];
+  readonly payments?: readonly CommercetoolsPayment[];
+  readonly totalLineItemQuantity: number;
+  readonly totalPrice: CommercetoolsMoney;
+  readonly taxMode?: string;
+  readonly taxIncludedInPrice?: boolean;
+  readonly taxedPrice?: {
+    readonly totalGross: CommercetoolsMoney;
+    readonly totalNet: CommercetoolsMoney;
+    readonly totalTax: CommercetoolsMoney | null;
+  } | null;
+  readonly checkoutDetails?: CheckoutDetails;
+  readonly shippingAddress?: ShippingAddress | null;
+  readonly itemShippingAddresses: readonly CommercetoolsAddress[];
+  readonly shipping: readonly {
+    readonly shippingAddress: CommercetoolsAddress;
+    readonly shippingInfo: {
+      readonly price: CommercetoolsMoney;
+      readonly shippingMethodId?: string;
+      readonly shippingMethodName: string;
+      readonly shippingMethodState: "DoesNotMatchCart" | "MatchesCart";
+    };
+    readonly shippingKey: string;
+  }[];
+  readonly cartState: "Active" | "Merged" | "Ordered" | "Frozen";
+  readonly shippingMode: "Single" | "Multiple";
+};
+
+export type CommercetoolsPayment = {
+  readonly amountPlanned: CommercetoolsMoney;
+  readonly custom?: {
+    readonly type?: { readonly key: string } | null;
+    readonly customFieldsRaw?:
+      | readonly { readonly name: string; readonly value: unknown }[]
+      | null;
+  } | null;
+  readonly id: string;
+  readonly interfaceId?: string | null;
+  readonly key?: string | null;
+  readonly paymentMethodInfo: {
+    readonly method?: string | null;
+    readonly paymentInterface?: string | null;
+  };
+};
+
+export type CommercetoolsLineItem = {
+  readonly discounts?: readonly CartDiscount[];
+  readonly id: string;
+  readonly productId: string;
+  readonly distributionChannel?: { readonly id: string } | null;
+  readonly productType?: ProductTypeKey;
+  readonly name?: string | null;
+  readonly variant: {
+    readonly id: number;
+    readonly sku?: string;
+    readonly images: readonly {
+      readonly url: string;
+      readonly altText: string;
+    }[];
+    readonly summaryAttribute?: CartLineItemSummaryAttribute;
+  } | null;
+  readonly price: CommercetoolsPrice;
+  readonly quantity: number;
+  readonly totalPrice: CommercetoolsMoney | null;
+  readonly shippingDetails?: {
+    readonly targets: readonly {
+      readonly addressKey: string;
+      readonly quantity: number;
+      readonly shippingMethodKey?: string;
+    }[];
+    readonly valid: boolean;
+  } | null;
+};

@@ -1,0 +1,66 @@
+{
+  "extends": [
+    "@repo/typescript-config/effect-nextjs.json",
+    "@repo/cms/typescript-config.json"
+  ],
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./*"],
+      "@repo/cms": [
+        "../../packages/cms-contentstack"
+      ],
+      "@repo/cms/*": [
+        "../../packages/cms-contentstack/*"
+      ],
+      "@repo/*": [
+        "../../packages/*"
+      ],
+      "@repo/auth": [
+        "../../packages/auth-clerk"
+      ],
+      "@repo/auth/*": [
+        "../../packages/auth-clerk/*"
+      ],
+      "@repo/commerce-checkout/bindings": [
+        "./lib/commerce-runtime.ts"
+      ],
+      "@repo/search/runtime": [
+        "./lib/search-runtime.ts"
+      ],
+      "@repo/search-provider": [
+        "../../packages/search-algolia"
+      ],
+      "@repo/search-provider/*": [
+        "../../packages/search-algolia/*"
+      ],
+      "@repo/commerce-core/product/public-catalog": [
+        "../../packages/commerce-commercetools/product/public-catalog.ts"
+      ],
+      "@repo/commerce-b2c/bindings": [
+        "./lib/commerce-runtime.ts"
+      ],
+      "@repo/commerce-core/bindings": [
+        "./lib/commerce-runtime.ts"
+      ],
+      "@repo/commerce-core/customer-account/bindings": [
+        "./components/layout/customer-account-navigation.ts"
+      ],
+      "@repo/commerce-provider": [
+        "../../packages/commerce-commercetools"
+      ],
+      "@repo/commerce-provider/*": [
+        "../../packages/commerce-commercetools/*"
+      ],
+      "@repo/commerce-core/shopping-lists/web/bindings": [
+        "./lib/commerce-runtime.ts"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "next.config.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ]
+}

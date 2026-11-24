@@ -1,0 +1,21 @@
+import { baseConfig, withAnalyzer } from "@repo/next-config";
+import { withLogging, withSentry } from "@repo/observability/next-config";
+import type { NextConfig } from "next";
+import { withWorkflow } from "workflow/next";
+
+import { env } from "@/env";
+
+process.env.WORKFLOW_LOCAL_DATA_DIR ??= ".workflow-data";
+
+let nextConfig: NextConfig = withLogging(baseConfig);
+
+if (env.VERCEL) {
+  nextConfig = withSentry(nextConfig);
+}
+
+if (env.ANALYZE === "true") {
+  nextConfig = withAnalyzer(nextConfig);
+}
+
+const [configuration] = [withWorkflow(nextConfig)] as const;
+export default configuration;

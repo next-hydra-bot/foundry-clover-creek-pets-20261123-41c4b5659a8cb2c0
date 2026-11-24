@@ -1,0 +1,46 @@
+{
+  "portless": {
+    "name": "api.clover-creek-pets-20261123",
+    "script": "dev:app"
+  },
+  "scripts": {
+    "analyze": "ANALYZE=true npm run build",
+    "build": "next build",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "dev": "portless",
+    "dev:app": "next dev --turbopack",
+    "dev:public": "portless --ngrok",
+    "start": "next start",
+    "test": "NODE_ENV=test vitest run",
+    "typecheck": "next typegen && pnpm --workspace-root exec tsc --noEmit --project apps/api/tsconfig.json"
+  },
+  "dependencies": {
+    "@repo/design-system": "workspace:*",
+    "@repo/errors": "workspace:*",
+    "@repo/next-config": "workspace:*",
+    "@repo/observability": "workspace:*",
+    "@repo/testing": "workspace:*",
+    "@t3-oss/env-nextjs": "catalog:",
+    "effect": "catalog:",
+    "import-in-the-middle": "2.0.0",
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "require-in-the-middle": "8.0.1",
+    "vitest": "catalog:",
+    "zod": "^3.25.28",
+    "@repo/commerce-core": "workspace:*",
+    "@repo/commerce-provider": "workspace:@repo/commerce-commercetools@*",
+    "workflow": "5.4.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "concurrently": "^9.1.2",
+    "typescript": "catalog:typescript7"
+  },
+  "name": "api",
+  "private": true
+}

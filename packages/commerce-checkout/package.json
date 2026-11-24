@@ -1,0 +1,64 @@
+{
+  "dependencies": {
+    "@repo/payments": "workspace:*",
+    "@repo/actions": "workspace:*",
+    "@repo/design-system": "workspace:*",
+    "@repo/errors": "workspace:*",
+    "@repo/i18n": "workspace:*",
+    "react": "catalog:",
+    "server-only": "catalog:",
+    "@repo/commerce-core": "workspace:*",
+    "@repo/auth-contract": "workspace:*"
+  },
+  "devDependencies": {
+    "@effect/vitest": "catalog:",
+    "@repo/testing": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "catalog:",
+    "effect": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "@repo/e2e-testing": "workspace:*",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "next": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "name": "@repo/commerce-checkout",
+  "peerDependencies": {
+    "effect": "catalog:"
+  },
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.ts",
+    "./checkout-policy": "./checkout-policy.ts",
+    "./checkout-session": "./checkout-session.ts",
+    "./contact-source-policy": "./contact-source-policy.ts",
+    "./state": "./state.ts",
+    "./failure-policy": "./failure-policy.ts",
+    "./order-confirmation": "./order-confirmation.ts",
+    "./runtime": "./runtime.ts",
+    "./checkout": "./checkout/index.ts",
+    "./checkout/payment-options-form": "./checkout/payment-options-form.tsx",
+    "./checkout/place-order-form": "./checkout/place-order-form.tsx",
+    "./checkout/procedures": "./checkout/procedures.ts",
+    "./checkout/public-errors": "./checkout/public-errors.ts",
+    "./e2e/checkout-scenario": "./e2e/checkout-scenario.ts",
+    "./e2e/card-payment-entry-driver": "./e2e/card-payment-entry-driver.ts",
+    "./http/checkout-api": "./http/checkout-api.ts",
+    "./http/checkout-api-messages": "./http/checkout-api-messages.ts",
+    "./http/checkout-api-state": "./http/checkout-api-state.ts",
+    "./lib/order/utils/anonymous-order-access-cookie": "./lib/order/utils/anonymous-order-access-cookie.ts",
+    "./lib/order/utils/order-placement-recovery-cookie": "./lib/order/utils/order-placement-recovery-cookie.ts",
+    "./e2e/drivers/catalog.driver": "./e2e/drivers/catalog.driver.ts",
+    "./bindings": "./bindings.ts",
+    "./checkout-cart": "./checkout-cart.ts",
+    "./http/runtime": "./http/runtime.ts"
+  },
+  "scripts": {
+    "test": "NODE_ENV=test vitest run",
+    "typecheck": "pnpm --workspace-root exec tsc --noEmit --project packages/commerce-checkout/tsconfig.json"
+  }
+}

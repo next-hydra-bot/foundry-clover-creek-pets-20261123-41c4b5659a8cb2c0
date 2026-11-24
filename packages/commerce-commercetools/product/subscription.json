@@ -1,0 +1,15 @@
+{
+  "messages": [],
+  "changes": [
+    { "resourceTypeId": "product" },
+    { "resourceTypeId": "category" },
+    { "resourceTypeId": "inventory-entry" },
+    { "resourceTypeId": "standalone-price" },
+    { "resourceTypeId": "product-discount" },
+    { "resourceTypeId": "product-type" },
+    { "resourceTypeId": "product-selection" },
+    { "resourceTypeId": "product-tailoring" },
+    { "resourceTypeId": "store" },
+    { "resourceTypeId": "channel" }
+  ]
+}

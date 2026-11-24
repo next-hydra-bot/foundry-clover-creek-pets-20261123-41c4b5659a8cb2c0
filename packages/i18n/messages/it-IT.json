@@ -1,0 +1,552 @@
+{
+  "web": {
+    "header": {
+      "signingOut": "Disconnessione in corso…",
+      "signOutFailed": "Impossibile disconnettersi. Riprova.",
+      "account": "Area clienti",
+      "signUp": "Registrati",
+      "signIn": "Accedi",
+      "signOut": "Esci",
+      "user": "Utente"
+    },
+    "customerAccount": {
+      "saved": "Saved successfully.",
+      "saving": "Saving...",
+      "errors": {
+        "invalidInput": "Please review your details and complete all required fields.",
+        "unauthenticated": "Sign in before saving your details.",
+        "emailRequired": "Add an email address to your sign-in account before continuing.",
+        "emailConflict": "This email belongs to an existing account. Sign in with that account or contact support.",
+        "unavailable": "We could not save your details right now. Please try again.",
+        "addressNotFound": "Questo indirizzo non è più disponibile. Aggiorna il tuo account.",
+        "defaultAddressRemoval": "Imposta un altro indirizzo come predefinito prima di rimuovere questo. Aggiungi un nuovo indirizzo se necessario.",
+        "addressOutcomeUnknown": "Non è stato possibile confermare la modifica. Aggiorna il tuo account prima di riprovare.",
+        "contextUnavailable": "Your personal account is unavailable. Complete account setup and try again.",
+        "addressRejected": "L’indirizzo non è stato accettato. Controlla il paese, la provincia, il codice postale e la via."
+      },
+      "title": "My account",
+      "description": "Manage your personal details and saved addresses.",
+      "label": "Personal account",
+      "profileTitle": "Personal details",
+      "saveProfile": "Save details",
+      "addressesTitle": "Saved addresses",
+      "editAddress": "Modifica",
+      "editAddressTitle": "Modifica indirizzo",
+      "removeAddress": "Rimuovi",
+      "removeAddressTitle": "Rimuovere questo indirizzo?",
+      "removeAddressDescription": "Questo indirizzo verrà rimosso dagli indirizzi salvati.",
+      "cancelAddressChange": "Annulla",
+      "defaultAddress": "Predefinito",
+      "defaultShippingAddress": "Spedizione predefinita",
+      "defaultBillingAddress": "Fatturazione predefinita",
+      "setDefaultAddress": "Imposta come predefinito",
+      "noAddresses": "You have no saved addresses yet.",
+      "addAddress": "Add an address",
+      "saveAddress": "Save address",
+      "overview": "Overview",
+      "overviewDescription": "Your account, saved products and orders.",
+      "signedInAccount": "Signed-in account",
+      "customerDetails": "Customer details and addresses",
+      "manageDetails": "Manage details",
+      "orders": "Orders",
+      "ordersDescription": "View your purchases and delivery information.",
+      "viewOrders": "View orders",
+      "registrationTitle": "Create your personal account",
+      "registrationDescription": "Your account is ready to shop as soon as you save your details. Company approval is not required.",
+      "register": "Create account",
+      "signIn": "Sign in or create an account",
+      "signInDescription": "Use your email to sign in or create an account, then complete your personal details.",
+      "emailRequired": "Add an email address to your sign-in account before continuing."
+    },
+    "customerArea": {
+      "navigation": {
+        "profile": "Profilo e indirizzi",
+        "accountManagement": "Gestione account",
+        "addresses": "Indirizzi",
+        "comingSoon": "Prossimamente",
+        "overview": "Panoramica",
+        "orders": "Ordini"
+      },
+      "overview": {
+        "account": "Il mio account",
+        "title": "Panoramica",
+        "description": "Il tuo account e i tuoi acquisti.",
+        "details": "I tuoi dati"
+      }
+    },
+    "checkout": {
+      "title": "Completa l’ordine",
+      "paymentOptions": {
+        "availableToSpend": "{amount} available to spend",
+        "card": "Card",
+        "cardInvalid": "Check your card details and try again.",
+        "cardNotReady": "Card entry is still loading.",
+        "chooseMethod": "Choose a payment method",
+        "netTerms": "Net {days}",
+        "paymentMethod": "Payment method",
+        "save": "Save payment options",
+        "saving": "Saving...",
+        "useShippingAddress": "Use shipping address for billing"
+      },
+      "steps": {
+        "contact": "Contatto",
+        "deliveryDetails": "Dettagli di consegna",
+        "shippingOptions": "Opzioni di spedizione",
+        "paymentOptions": "Opzioni di pagamento",
+        "reviewOrder": "Rivedi ordine"
+      },
+      "status": {
+        "complete": "Completo",
+        "incomplete": "Incompleto"
+      },
+      "activeStep": "Passaggio attivo",
+      "editingStep": "Modifica",
+      "attention": "Questo passaggio richiede attenzione",
+      "actions": {
+        "edit": "Modifica"
+      },
+      "errorBoundary": {
+        "tryAgain": "Riprova"
+      },
+      "cart": {
+        "title": "Carrello",
+        "items": "{count, plural, one {# articolo} other {# articoli}}",
+        "quantity": "Qtà {quantity}",
+        "violations": "Problemi del checkout",
+        "subtotal": "Subtotale"
+      },
+      "contact": {
+        "fields": {
+          "email": "E-mail",
+          "firstName": "Nome",
+          "lastName": "Cognome",
+          "phone": "Telefono"
+        },
+        "actions": {
+          "save": "Salva contatto",
+          "saving": "Salvataggio...",
+          "useCustomerProfile": "Usa il profilo cliente"
+        }
+      },
+      "deliveryDetails": {
+        "addressBook": {
+          "chooseShippingAddress": "Scegli un indirizzo di consegna",
+          "defaultShipping": "Indirizzo di consegna predefinito",
+          "makeDefaultShipping": "Imposta come indirizzo di consegna predefinito",
+          "saveShippingAddress": "Salva questo indirizzo di consegna",
+          "useNewAddress": "Usa un nuovo indirizzo"
+        },
+        "fields": {
+          "addressLine1": "Indirizzo, riga 1",
+          "addressLine2": "Indirizzo, riga 2",
+          "city": "Città",
+          "postalCode": "Codice postale",
+          "region": "Regione",
+          "country": "Paese"
+        },
+        "actions": {
+          "save": "Salva dettagli di consegna",
+          "saving": "Salvataggio..."
+        }
+      },
+      "shippingOptions": {
+        "chooseOption": "Scegli un’opzione di spedizione",
+        "choosePlan": "Scegli un piano di consegna",
+        "delivery": "Consegna {number}",
+        "noOptions": "Non sono disponibili opzioni per questa consegna.",
+        "noPlans": "Non è disponibile un piano di consegna per questo indirizzo.",
+        "plan": "Piano di consegna {number}",
+        "quantity": "Qtà {quantity}",
+        "actions": {
+          "save": "Salva opzioni di spedizione",
+          "saving": "Salvataggio..."
+        }
+      },
+      "errors": {
+        "addressBook": {
+          "accessDenied": "La rubrica non è disponibile per questo checkout.",
+          "providerFailure": "Impossibile caricare gli indirizzi salvati. Riprova."
+        },
+        "cartMismatch": "Questo checkout non è più aggiornato. Aggiorna la pagina e riprova.",
+        "internal": "Impossibile completare il checkout. Riprova.",
+        "deliveryDetails": {
+          "addressBookEntryUnavailable": "Questo indirizzo salvato non è più disponibile.",
+          "sourceUnavailable": "Questa origine di consegna non è disponibile per questo checkout.",
+          "providerFailure": "Impossibile salvare i dettagli di consegna. Riprova.",
+          "unsupported": "Questa origine di consegna non è ancora supportata."
+        },
+        "notFound": "Checkout non trovato per questa richiesta.",
+        "paymentOptions": {
+          "unavailable": "Completa il passaggio corrente del checkout prima di preparare il pagamento."
+        },
+        "versionConflict": "Il checkout è cambiato prima del salvataggio. Aggiorna la pagina e riprova.",
+        "saveContact": {
+          "CheckoutCartMismatch": "Questo checkout non è più aggiornato. Aggiorna la pagina e riprova.",
+          "CheckoutCustomerProfileIncomplete": "Nel tuo profilo cliente mancano informazioni di contatto obbligatorie. Inseriscile qui sotto per continuare.",
+          "InputInvalid": "Inserisci e-mail, nome e cognome.",
+          "CheckoutMutationOutcomeUnknown": "Non è stato possibile confermare il salvataggio dei dati di contatto. Aggiorna la pagina prima di riprovare.",
+          "CheckoutMutationSourceUnavailable": "Questa origine del contatto non è disponibile per questo checkout.",
+          "CheckoutMutationProviderFailure": "Impossibile salvare il contatto. Riprova.",
+          "CommerceAccountUnavailable": "Impossibile salvare il contatto. Riprova.",
+          "CommerceRequestFailure": "Impossibile salvare il contatto. Riprova.",
+          "CheckoutMutationUnsupported": "Questa origine del contatto non è ancora supportata.",
+          "CheckoutUnavailable": "Checkout non trovato per questa richiesta.",
+          "CommerceRequestContextNotFound": "Checkout non trovato per questa richiesta.",
+          "CheckoutVersionConflict": "Il checkout è cambiato prima del salvataggio. Aggiorna la pagina e riprova."
+        },
+        "saveDeliveryDetails": {
+          "CheckoutCartMismatch": "Questo checkout non è più aggiornato. Aggiorna la pagina e riprova.",
+          "CheckoutMutationAddressBookEntryUnavailable": "Questo indirizzo salvato non è più disponibile.",
+          "InputInvalid": "Inserisci indirizzo, codice postale, città e paese.",
+          "CheckoutMutationOutcomeUnknown": "Non è stato possibile confermare il salvataggio dei dati di consegna. Aggiorna la pagina prima di riprovare.",
+          "CheckoutMutationSourceUnavailable": "Questa origine di consegna non è disponibile per questo checkout.",
+          "CheckoutMutationProviderFailure": "Impossibile salvare i dettagli di consegna. Riprova.",
+          "CommerceAccountUnavailable": "Impossibile salvare i dettagli di consegna. Riprova.",
+          "CommerceRequestFailure": "Impossibile salvare i dettagli di consegna. Riprova.",
+          "CheckoutMutationUnsupported": "Questa origine di consegna non è ancora supportata.",
+          "CheckoutUnavailable": "Checkout non trovato per questa richiesta.",
+          "CommerceRequestContextNotFound": "Checkout non trovato per questa richiesta.",
+          "CheckoutVersionConflict": "Il checkout è cambiato prima del salvataggio. Aggiorna la pagina e riprova.",
+          "AddressBookMutationRejected": "L’indirizzo non è stato accettato. Controlla il paese, la provincia, il codice postale e la via."
+        },
+        "savePaymentOptions": {
+          "CheckoutCartMismatch": "This checkout is no longer current. Refresh and try again.",
+          "InputInvalid": "Choose an available payment method and complete its details.",
+          "CheckoutMutationOutcomeUnknown": "We could not confirm whether your payment options were saved. Refresh before trying again.",
+          "CheckoutMutationProviderFailure": "Payment options could not be saved. Try again.",
+          "CheckoutPaymentMethodUnavailable": "That payment method is no longer available. Refresh and choose again.",
+          "CheckoutPaymentOptionsUnavailable": "Completa il passaggio corrente del checkout prima di preparare il pagamento.",
+          "CheckoutPaymentPreparationRefreshRequired": "Card details no longer match this checkout. Refresh and enter them again.",
+          "CheckoutUnavailable": "Checkout was not found for the current request.",
+          "CheckoutVersionConflict": "Checkout changed before your payment options could be saved. Refresh and try again.",
+          "CommerceAccountUnavailable": "Payment options could not be saved. Try again.",
+          "CommerceRequestContextNotFound": "Checkout was not found for the current request."
+        },
+        "saveShippingOptions": {
+          "CheckoutCartMismatch": "Questo checkout non è più aggiornato.",
+          "InputInvalid": "Scegli un’opzione per ogni consegna.",
+          "CheckoutMutationOutcomeUnknown": "Impossibile confermare il salvataggio. Aggiorna la pagina.",
+          "CheckoutMutationProviderFailure": "Impossibile salvare le opzioni di spedizione.",
+          "CheckoutShippingOptionsRefreshRequired": "Le opzioni di spedizione sono state salvate, ma non è stato possibile aggiornare il checkout. Aggiorna la pagina.",
+          "CheckoutShippingSelectionUnavailable": "Questa opzione non è più disponibile.",
+          "CheckoutUnavailable": "Checkout non trovato.",
+          "CheckoutVersionConflict": "Il checkout è cambiato prima del salvataggio.",
+          "CommerceAccountUnavailable": "Impossibile salvare le opzioni di spedizione.",
+          "CommerceRequestContextNotFound": "Checkout non trovato."
+        },
+        "badRequest": "La richiesta di checkout non è valida."
+      },
+      "violations": {
+        "unknownCountry": "questa destinazione",
+        "shippingCountryUnavailable": "La spedizione verso {country} non è disponibile.",
+        "guestItemLimit": "I carrelli degli ospiti sono limitati a {maxQuantity} articoli. Rimuovi almeno {excessQuantity, plural, one {# articolo} other {# articoli}}.",
+        "incompatibleCartItems": "Questi articoli non possono essere acquistati insieme.",
+        "shippingAddressRestricted": "Uno o più articoli non possono essere spediti a questo indirizzo.",
+        "policyUnavailable": "Impossibile verificare la disponibilità del checkout.",
+        "taxUnavailable": "Non è stato possibile calcolare le imposte. Riprova o contatta l’assistenza.",
+        "generic": "Il checkout non può continuare finché il problema non viene risolto."
+      }
+    },
+    "product": {
+      "addToCart": "Aggiungi al carrello",
+      "quoteRequest": "Richiedi un preventivo",
+      "priceStartsAt": "Prezzo a partire da {price}",
+      "errorLoadingProduct": "Errore nel caricamento del prodotto",
+      "inStock": "Disponibile",
+      "outOfStock": "Esaurito",
+      "currentlyOutOfStock": "Attualmente esaurito",
+      "unitsAvailable": "{count, plural, one {# unità disponibile} other {# unità disponibili}}",
+      "quantity": "Quantità",
+      "loading": "Caricamento...",
+      "selectedConfiguration": "Configurazione selezionata:",
+      "units": "{count, plural, one {unità} other {unità}}",
+      "outOfStockSuffix": "(Esaurito)",
+      "productHasNoVariants": "Il prodotto non ha varianti",
+      "viewDetails": "Visualizza dettagli",
+      "combinationUnavailable": "Questa combinazione non è disponibile"
+    },
+    "cart": {
+      "addedToCartAlert": "Aggiunto {quantity} {variantLabel} al carrello a {price} ciascuno.\nStato disponibilità: {stockStatus}",
+      "stockIn": "Disponibile",
+      "stockOut": "Esaurito",
+      "toast": {
+        "addedToCart": "Aggiunto al carrello",
+        "removedFromCart": "Rimosso dal carrello",
+        "updatedQuantity": "Quantità aggiornata",
+        "failedToAdd": "Impossibile aggiungere al carrello",
+        "failedToRemove": "Impossibile rimuovere l'elemento",
+        "failedToUpdate": "Impossibile aggiornare la quantità"
+      },
+      "title": "Carrello ({count})",
+      "empty": {
+        "heading": "Il tuo carrello è vuoto",
+        "description": "Aggiungi della macchina pesante per iniziare",
+        "actions": {
+          "browseProducts": "Sfoglia Prodotti"
+        }
+      },
+      "summary": {
+        "subtotal": {
+          "label": "Subtotale"
+        },
+        "shipping": {
+          "label": "Spedizione",
+          "description": "Calcolato al momento del pagamento"
+        },
+        "total": {
+          "label": "Totale",
+          "estimated": "Totale stimato"
+        },
+        "taxesAndShippingNotice": "Il totale viene confermato al pagamento.",
+        "tax": {
+          "label": "Imposte",
+          "included": "Imposte (incluse)",
+          "unknown": "Calcolate al pagamento",
+          "estimated": "Stima"
+        }
+      },
+      "actions": {
+        "checkout": "Procedi al pagamento",
+        "continueShopping": "Continua a fare acquisti",
+        "viewCart": "Vedi carrello"
+      },
+      "pageTitle": "Carrello",
+      "promotions": {
+        "code": "Codice sconto",
+        "apply": "Applica",
+        "remove": "Rimuovi {code}",
+        "removeButton": "Rimuovi",
+        "inapplicable": "Questo codice non si applica al carrello attuale.",
+        "failed": "Impossibile aggiornare il codice. Riprova.",
+        "discount": "Sconto"
+      }
+    },
+    "orderHistory": {
+      "title": "Ordini",
+      "order": "Ordine",
+      "store": "Negozio",
+      "delivery": "Consegna",
+      "total": "Totale",
+      "accessDenied": "Non hai accesso a questa cronologia. Accedi o seleziona un’azienda autorizzata.",
+      "configuration": "La cronologia degli ordini non è temporaneamente disponibile. Riprova più tardi.",
+      "invalidCursor": "Questa pagina non è più disponibile. Torna ai tuoi ordini recenti.",
+      "unavailable": "Impossibile caricare gli ordini. Riprova.",
+      "purchaseOrder": "Riferimento d’acquisto",
+      "items": "Articoli acquistati",
+      "sku": "SKU",
+      "quantity": "Quantità ordinata",
+      "quantityShort": "Qtà",
+      "currentQuantity": "Quantità attuale",
+      "each": "ciascuno",
+      "subtotal": "Subtotale",
+      "shipping": "Spedizione",
+      "tax": "Imposte",
+      "adjustments": "Rettifiche",
+      "discountsApplied": "Sconti già applicati",
+      "taxIncluded": "Imposte incluse",
+      "refunded": "Rimborsato",
+      "outstanding": "Importo residuo",
+      "shippingAddress": "Indirizzo di consegna",
+      "billingAddress": "Indirizzo di fatturazione",
+      "tracking": "Tracciamento",
+      "track": "Traccia la spedizione",
+      "status": {
+        "notCancelled": "Non annullato",
+        "cancelled": "Annullato",
+        "unknown": "Sconosciuto",
+        "notRequired": "Non necessario",
+        "pending": "In attesa",
+        "ready": "Pronto",
+        "inTransit": "In transito",
+        "partiallyDelivered": "Consegnato parzialmente",
+        "delivered": "Consegnato",
+        "delayed": "In ritardo",
+        "backordered": "In riassortimento",
+        "failed": "Non riuscito",
+        "unfulfilled": "Non evaso",
+        "inProgress": "In corso",
+        "partiallyFulfilled": "Evaso parzialmente",
+        "fulfilled": "Evaso",
+        "onHold": "Sospeso",
+        "scheduled": "Programmato",
+        "balanceDue": "Saldo dovuto",
+        "authorized": "Autorizzato",
+        "partiallyPaid": "Pagato parzialmente",
+        "paid": "Pagato",
+        "partiallyRefunded": "Rimborsato parzialmente",
+        "refunded": "Rimborsato",
+        "creditOwed": "Credito dovuto",
+        "voided": "Revocato",
+        "expired": "Scaduto"
+      },
+      "invalidFilter": "Controlla i filtri e l’intervallo di date, poi riprova.",
+      "statusUnavailable": "Stato non disponibile",
+      "errorTitle": "Impossibile caricare i tuoi ordini",
+      "description": "I tuoi acquisti e aggiornamenti sulle consegne.",
+      "detailDescription": "Articoli acquistati, importi, consegna e tracciamento.",
+      "account": "Account",
+      "date": "Data",
+      "allStores": "Tutti i negozi",
+      "apply": "Applica",
+      "unattributed": "Non registrato",
+      "payment": "Pagamento",
+      "fulfillment": "Evasione",
+      "cancellation": "Annullamento",
+      "empty": "Ancora nessun ordine",
+      "emptyPage": "Nessun ordine corrispondente trovato finora. Continua la ricerca.",
+      "nextPage": "Pagina successiva",
+      "firstPage": "Ordini recenti",
+      "back": "Torna agli ordini",
+      "discounts": "Sconti",
+      "shipments": "Spedizioni",
+      "orderNumberFilter": "Numero d’ordine",
+      "purchaseOrderFilter": "Numero dell’ordine d’acquisto",
+      "dateFrom": "Dal",
+      "dateTo": "Al",
+      "anyStatus": "Qualsiasi stato",
+      "clearFilters": "Cancella filtri",
+      "continueSearch": "Continua la ricerca",
+      "emptyDescription": "I tuoi ordini appariranno qui dopo il primo acquisto.",
+      "noMatches": "Nessun ordine corrispondente",
+      "noMatchesDescription": "Prova un altro numero d’ordine o modifica i filtri.",
+      "continueShopping": "Continua gli acquisti",
+      "search": "Cerca",
+      "searchPlaceholder": "Inserisci il numero d’ordine",
+      "filters": "Filtri",
+      "statusLabel": "Stato",
+      "viewOrder": "Visualizza ordine",
+      "pagination": "Pagine degli ordini",
+      "retry": "Riprova",
+      "historyLimit": "Sono mostrati gli ordini degli ultimi {days, number} giorni. Gli ordini precedenti non sono disponibili qui.",
+      "emptyRecent": "Nessun ordine recente",
+      "emptyRecentDescription": "Non hai ordini nella cronologia disponibile."
+    },
+    "categories": {
+      "title": "Categorie",
+      "description": "Esplora i prodotti per categoria.",
+      "empty": "Nessuna categoria ancora disponibile.",
+      "allCategories": "Tutte le categorie"
+    },
+    "navigation": {
+      "home": "Home",
+      "products": "Prodotti",
+      "categoryFallback": "Categoria"
+    },
+    "registration": {
+      "form": {
+        "fields": {
+          "country": {
+            "label": "Paese",
+            "placeholder": "Seleziona un paese"
+          },
+          "streetAddress": {
+            "label": "Indirizzo",
+            "placeholder": "Indirizzo"
+          },
+          "addressLine2": {
+            "label": "Appartamento, piano, ecc. (facoltativo)",
+            "placeholder": "Ufficio, piano, edificio o reparto"
+          },
+          "postalCode": {
+            "label": "CAP",
+            "placeholder": "CAP"
+          },
+          "city": {
+            "label": "Città",
+            "placeholder": "Città"
+          },
+          "region": {
+            "requiredLabel": "Stato / provincia",
+            "optionalLabel": "Stato / regione",
+            "codeLabel": "Codice regione (facoltativo)",
+            "selectPlaceholder": "Scegli stato o provincia"
+          },
+          "firstName": {
+            "label": "Nome",
+            "placeholder": "Nome"
+          },
+          "lastName": {
+            "label": "Cognome",
+            "placeholder": "Cognome"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "Email"
+          }
+        }
+      }
+    },
+    "shoppingLists": {
+      "title": "Shopping lists",
+      "account": "Account",
+      "description": "Keep your favorite products and plan your next order.",
+      "store": "Store",
+      "name": "List name",
+      "create": "Create list",
+      "rename": "Save name",
+      "items": "Items",
+      "empty": "You have no shopping lists yet.",
+      "emptyItems": "Save products to this list from their product pages.",
+      "addItem": "Add item",
+      "catalogUnavailable": "Products are unavailable right now. You can still manage this list.",
+      "variant": "Variant",
+      "quantity": "Quantity",
+      "updateQuantity": "Update quantity",
+      "remove": "Remove item",
+      "delete": "Delete list",
+      "confirmDelete": "Confirm deletion",
+      "ownership": "Show lists",
+      "mine": "My lists",
+      "others": "Other customer lists",
+      "all": "All company lists",
+      "apply": "Apply",
+      "saving": "Saving…",
+      "saved": "Saved.",
+      "refresh": "Refresh list",
+      "firstPage": "Back to my lists",
+      "nextPage": "Next page",
+      "conflict": "This list changed since you opened it. Refresh the list before making another change.",
+      "accessDenied": "You do not have permission to perform this action in the current purchasing context. If you switched company or Store, refresh the page.",
+      "outcomeUnknown": "The change could not be confirmed. Refresh the list to check its current contents before trying again.",
+      "limitExceeded": "This list has reached its item limit. Remove an item before adding another.",
+      "notFound": "This list is no longer available. Return to your lists.",
+      "unavailable": "Shopping lists are unavailable right now. Check your account connection or try again later.",
+      "invalidInput": "Check the form: a name and positive whole quantities are required.",
+      "favorites": "Wish List",
+      "addFavorite": "Add to Wish List",
+      "removeFavorite": "Remove from Wish List",
+      "chooseVariant": "Choose a variant to save",
+      "continueToLists": "Continue to your lists",
+      "otherList": "Add to another list",
+      "createWithItem": "Create list and add item",
+      "browseProducts": "Browse all products",
+      "editName": "Edit list name",
+      "update": "Update",
+      "sku": "SKU",
+      "outOfStock": "Currently out of stock",
+      "removedProduct": "Product no longer available",
+      "removedProductHint": "You can remove this item from your list.",
+      "productDetailsUnavailable": "Product details temporarily unavailable",
+      "noImage": "No image",
+      "deleteDescription": "This deletes the list and all its saved items. This cannot be undone.",
+      "renameDescription": "Give this shopping list a name that is easy to recognize.",
+      "cancel": "Cancel"
+    },
+    "search": {
+      "productListing": {
+        "facets": {
+          "category": "Categoria",
+          "availability": "Disponibilità",
+          "price": "Prezzo"
+        },
+        "filters": "Filtri",
+        "clearAll": "Cancella tutto",
+        "minimum": "Minimo",
+        "maximum": "Massimo",
+        "apply": "Applica",
+        "showLess": "Mostra meno",
+        "showMore": "Mostra altro"
+      }
+    }
+  }
+}

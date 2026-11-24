@@ -1,0 +1,47 @@
+{
+  "dependencies": {
+    "@repo/cli-core": "workspace:*",
+    "@repo/commerce-provider": "workspace:@repo/commerce-commercetools@*",
+    "@repo/i18n": "workspace:*",
+    "@repo/payments": "workspace:*",
+    "@stripe/react-stripe-js": "^6.8.2",
+    "@stripe/stripe-js": "^9.15.0",
+    "@t3-oss/env-nextjs": "catalog:",
+    "react": "catalog:",
+    "server-only": "catalog:",
+    "zod": "^3.25.28",
+    "@repo/commerce-checkout": "workspace:*"
+  },
+  "devDependencies": {
+    "@repo/e2e-testing": "workspace:*",
+    "@repo/testing": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "effect": "catalog:",
+    "react-dom": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "name": "@repo/payments-stripe",
+  "peerDependencies": {
+    "effect": "catalog:"
+  },
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./cli": "./cli.ts",
+    "./checkout": "./checkout/payment-options-form.tsx",
+    "./keys": "./keys.ts",
+    "./server": "./server/card-payments.ts",
+    "./server/commercetools": "./server/commercetools.ts",
+    "./testing": "./testing/index.ts"
+  },
+  "scripts": {
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "test": "NODE_ENV=test vitest run --passWithNoTests",
+    "typecheck": "pnpm --workspace-root exec tsc --noEmit --project packages/payments-stripe/tsconfig.json"
+  }
+}

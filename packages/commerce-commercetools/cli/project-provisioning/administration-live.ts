@@ -1,0 +1,241 @@
+import { createApiBuilderFromCtpClient } from "@commercetools/platform-sdk";
+import type { ProjectUpdateAction } from "@commercetools/platform-sdk";
+import { ClientBuilder } from "@commercetools/ts-client";
+import type {
+  AuthMiddlewareOptions,
+  HttpMiddlewareOptions,
+} from "@commercetools/ts-client";
+import { localization } from "@repo/site-config";
+import { Effect, Layer, Redacted } from "effect";
+
+import { CommercetoolsProjectAdministration } from "./administration";
+import { BootstrapCommercetoolsConfig } from "./bootstrap-config";
+import { decodeErrorDetails } from "./error-details";
+import {
+  ApiClientId,
+  PreparedProject,
+  ProductSearchTimeout,
+  ProjectAdministrationError,
+  RuntimeClientCreationOutcomeUnknown,
+  RuntimeCredentials,
+} from "./model";
+
+const SEARCH_POLL_ATTEMPTS = 60;
+const SEARCH_POLL_INTERVAL = "2 seconds";
+
+const administrationError = (
+  operation: ProjectAdministrationError["operation"],
+  message: string,
+  cause: unknown
+) => new ProjectAdministrationError({ cause, message, operation });
+
+export const runtimeClientCreationError = (
+  cause: unknown,
+  clientName: string
+): ProjectAdministrationError | RuntimeClientCreationOutcomeUnknown => {
+  const details = decodeErrorDetails(cause);
+  const statusCode = details?.statusCode ?? details?.status;
+
+  return statusCode !== undefined && statusCode >= 400 && statusCode < 500
+    ? administrationError(
+        "createRuntimeClient",
+        `Commercetools rejected runtime API Client "${clientName}"`,
+        cause
+      )
+    : new RuntimeClientCreationOutcomeUnknown({
+        cause,
+        clientName,
+        message:
+          "The runtime API Client creation outcome could not be confirmed",
+      });
+};
+
+export const createBootstrapProjectApi = (
+  config: BootstrapCommercetoolsConfig["Service"]
+) => {
+  const authMiddlewareOptions: AuthMiddlewareOptions = {
+    credentials: {
+      clientId: config.clientId,
+      clientSecret: Redacted.value(config.clientSecret),
+    },
+    host: config.authUrl,
+    httpClient: fetch,
+    projectKey: config.projectKey,
+    scopes: [...config.scopes],
+  };
+  const httpMiddlewareOptions: HttpMiddlewareOptions = {
+    enableRetry: false,
+    host: config.apiUrl,
+    httpClient: fetch,
+  };
+  const client = new ClientBuilder()
+    .withProjectKey(config.projectKey)
+    .withClientCredentialsFlow(authMiddlewareOptions)
+    .withHttpMiddleware(httpMiddlewareOptions)
+    .build();
+  return createApiBuilderFromCtpClient(client).withProjectKey({
+    projectKey: config.projectKey,
+  });
+};
+
+export const projectAdministrationLayer = Layer.effect(
+  CommercetoolsProjectAdministration,
+  Effect.gen(function* () {
+    const config = yield* BootstrapCommercetoolsConfig;
+    const apiRoot = createBootstrapProjectApi(config);
+
+    const getProject = Effect.fn("ProjectAdministration.getProject")(() =>
+      Effect.tryPromise({
+        catch: (cause) =>
+          administrationError(
+            "getProject",
+            "Could not read the Commercetools Project",
+            cause
+          ),
+        try: async () => {
+          const response = await apiRoot.get().execute();
+          return response.body;
+        },
+      })
+    );
+
+    const waitForProductSearch = (
+      remainingAttempts: number
+    ): Effect.Effect<
+      PreparedProject,
+      ProjectAdministrationError | ProductSearchTimeout
+    > =>
+      Effect.gen(function* () {
+        const project = yield* getProject();
+        const status =
+          project.searchIndexing?.productsSearch?.status ?? "Unknown";
+
+        if (status === "Activated") {
+          return new PreparedProject({
+            projectKey: config.projectKey,
+            searchIndexingStatus: "Activated",
+          });
+        }
+        if (remainingAttempts === 0) {
+          return yield* new ProductSearchTimeout({
+            lastStatus: status,
+            message: "Product Search did not activate in time",
+          });
+        }
+
+        yield* Effect.sleep(SEARCH_POLL_INTERVAL);
+        return yield* waitForProductSearch(remainingAttempts - 1);
+      });
+
+    const prepareProject = Effect.fn("ProjectAdministration.prepareProject")(
+      function* () {
+        const project = yield* getProject();
+        const status = project.searchIndexing?.productsSearch?.status;
+
+        const actions: ProjectUpdateAction[] = [];
+        const languages = [
+          ...new Set([...project.languages, ...localization.locales]),
+        ];
+        const countries = [
+          ...new Set([
+            ...project.countries,
+            ...localization.storefronts.map(({ country }) => country),
+          ]),
+        ];
+        const currencies = [
+          ...new Set([
+            ...project.currencies,
+            ...localization.storefronts.map(({ currency }) => currency),
+          ]),
+        ];
+        if (languages.length > project.languages.length)
+          actions.push({ action: "changeLanguages", languages });
+        if (countries.length > project.countries.length)
+          actions.push({ action: "changeCountries", countries });
+        if (currencies.length > project.currencies.length)
+          actions.push({ action: "changeCurrencies", currencies });
+        if (status !== "Activated" && status !== "Indexing") {
+          actions.push({
+            action: "changeProductSearchIndexingEnabled",
+            enabled: true,
+            mode: "ProductsSearch",
+          });
+        }
+        if (actions.length > 0) {
+          yield* Effect.tryPromise({
+            catch: (cause) =>
+              administrationError(
+                "configureProject",
+                "Could not apply Project locale settings and enable Product Search",
+                cause
+              ),
+            try: async () => {
+              await apiRoot
+                .post({ body: { actions, version: project.version } })
+                .execute();
+            },
+          });
+        }
+
+        return yield* waitForProductSearch(SEARCH_POLL_ATTEMPTS);
+      }
+    );
+
+    const createRuntimeClient = Effect.fn(
+      "ProjectAdministration.createRuntimeClient"
+    )((input: { readonly name: string; readonly scope: string }) =>
+      Effect.tryPromise({
+        catch: (cause) => runtimeClientCreationError(cause, input.name),
+        try: async () => {
+          const response = await apiRoot
+            .apiClients()
+            .post({
+              body: {
+                name: input.name,
+                scope: input.scope,
+              },
+            })
+            .execute();
+          const { secret } = response.body;
+
+          if (!secret) {
+            throw new Error("API Client creation returned no secret");
+          }
+
+          return new RuntimeCredentials({
+            clientId: ApiClientId.make(response.body.id),
+            clientSecret: Redacted.make(secret, { label: "clientSecret" }),
+            projectKey: config.projectKey,
+            region: config.region,
+            scope: response.body.scope,
+          });
+        },
+      })
+    );
+
+    const deleteApiClient = Effect.fn("ProjectAdministration.deleteApiClient")(
+      (clientId: ApiClientId) =>
+        Effect.tryPromise({
+          catch: (cause) =>
+            administrationError(
+              "deleteApiClient",
+              `Could not delete API Client ${clientId}`,
+              cause
+            ),
+          try: async () => {
+            await apiRoot
+              .apiClients()
+              .withId({ ID: clientId })
+              .delete()
+              .execute();
+          },
+        })
+    );
+
+    return CommercetoolsProjectAdministration.of({
+      createRuntimeClient,
+      deleteApiClient,
+      prepareProject: prepareProject(),
+    });
+  })
+);
