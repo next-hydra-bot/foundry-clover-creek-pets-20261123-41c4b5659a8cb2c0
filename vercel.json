@@ -50,11 +50,7 @@
       }
     },
     {
-      "source": "/_next/image",
-      "destination": "/_vercel/image"
-    },
-    {
-      "source": "/((?!_(?:next|vercel)/image/?$).*)",
+      "source": "/(.*)",
       "destination": {
         "service": "web"
       }
