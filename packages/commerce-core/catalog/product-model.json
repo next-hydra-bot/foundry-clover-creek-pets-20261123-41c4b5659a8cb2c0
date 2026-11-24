@@ -151,7 +151,9 @@
           "variantConstraint": "unique"
         }
       ],
-      "cartSummary": ["model"],
+      "cartSummary": [
+        "model"
+      ],
       "description": "Equipment used in heavy earthmoving and construction activities",
       "key": "heavy-earthmoving-and-construction-equipment",
       "labels": {
@@ -159,8 +161,13 @@
         "en-CA": "Heavy Earthmoving and Construction Equipment",
         "fr-CA": "Équipement lourd de terrassement et de construction"
       },
-      "searchFacets": ["capacity", "mobility"],
-      "variantOptions": ["model"]
+      "searchFacets": [
+        "capacity",
+        "mobility"
+      ],
+      "variantOptions": [
+        "model"
+      ]
     },
     {
       "attributes": [
@@ -370,8 +377,14 @@
         "en-CA": "Heavy Lifting and Specialized Equipment",
         "fr-CA": "Équipement spécialisé et de levage lourd"
       },
-      "searchFacets": ["capacity", "mobility", "color"],
-      "variantOptions": ["color"]
+      "searchFacets": [
+        "capacity",
+        "mobility",
+        "color"
+      ],
+      "variantOptions": [
+        "color"
+      ]
     },
     {
       "attributes": [
@@ -535,7 +548,10 @@
           ]
         }
       ],
-      "cartSummary": ["size", "color"],
+      "cartSummary": [
+        "size",
+        "color"
+      ],
       "description": "Apparel and equipment with typed material, weight, volume and care attributes. Variant selections are modeled as Product Options.",
       "key": "outdoor-product",
       "labels": {
@@ -543,8 +559,15 @@
         "en-CA": "Outdoor product",
         "fr-CA": "Produit de plein air"
       },
-      "searchFacets": ["color", "material", "size"],
-      "variantOptions": ["size", "color"]
+      "searchFacets": [
+        "color",
+        "material",
+        "size"
+      ],
+      "variantOptions": [
+        "size",
+        "color"
+      ]
     }
   ],
   "schemaVersion": 1

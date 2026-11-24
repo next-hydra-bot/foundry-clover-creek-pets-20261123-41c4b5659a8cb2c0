@@ -110,4 +110,64 @@ describe("Contentstack CLI diagnostics", () => {
       );
     }
   );
+
+  it.effect("reports an absent alias when CSDX has no tokens", () =>
+    Effect.gen(function* () {
+      const cli = yield* ContentstackCli;
+      const error = yield* Effect.flip(cli.resolveStack("stack-bltExample"));
+      expect(error.cause).toEqual(new Error("The alias did not resolve to the expected Management Token"));
+    }).pipe(
+      Effect.provide(commandLayer(() => ({ exitCode: 0, stdout: "Startup notice\nNo tokens are added. Use auth:tokens:add command to add tokens.\n" }))),
+      Effect.provideService(ConfigProvider.ConfigProvider, ConfigProvider.fromUnknown({}))
+    )
+  );
+
+  it.effect("reads JSON aliases after CSDX startup notices", () =>
+    Effect.gen(function* () {
+      const cli = yield* ContentstackCli;
+      const stack = yield* cli.resolveStack("stack-bltExample");
+      expect(stack.apiKey).toBe("bltExample");
+      expect(Redacted.value(stack.managementToken)).toBe("test-token");
+    }).pipe(
+      Effect.provide(commandLayer(() => ({ exitCode: 0, stdout: 'Startup notice\n[{"alias":"stack-bltExample","type":"management","apiKey":"bltExample","token":"test-token"}]\n' }))),
+      Effect.provideService(ConfigProvider.ConfigProvider, ConfigProvider.fromUnknown({}))
+    )
+  );
+
+  it.effect("rejects unrecognized alias output without exposing it", () =>
+    Effect.gen(function* () {
+      const cli = yield* ContentstackCli;
+      const error = yield* Effect.flip(cli.resolveStack("stack-bltExample"));
+      expect(error.cause).toEqual(new Error("Unrecognized alias response"));
+    }).pipe(
+      Effect.provide(commandLayer(() => ({ exitCode: 0, stdout: "unexpected sensitive output" }))),
+      Effect.provideService(ConfigProvider.ConfigProvider, ConfigProvider.fromUnknown({}))
+    )
+  );
+
+
+  it.effect("uses the provider captured when the CLI layer is built", () => {
+    const commands: string[] = [];
+    const provider = ConfigProvider.fromUnknown({
+      CONTENTSTACK_MANAGEMENT_TOKEN: "private-test-token",
+      CONTENTSTACK_REGION: "NA",
+      CONTENTSTACK_STACK_API_KEY: "bltExample",
+    });
+    const layer = commandLayer((command) => {
+      if (command._tag !== "StandardCommand") throw new Error("Expected a CSDX command");
+      const name = command.args[1] ?? "";
+      commands.push(name);
+      return { exitCode: 0, stdout: name === "auth:tokens:add" ? "Successfully added the token\n" : "" };
+    }).pipe(Layer.provide(ConfigProvider.layer(Effect.succeed(provider))));
+    return Effect.gen(function* () {
+      const cli = yield* ContentstackCli;
+      const stack = yield* cli.resolveStack("stack-bltExample");
+      expect(Redacted.value(stack.managementToken)).toBe("private-test-token");
+      expect(commands).toEqual(["config:set:region", "auth:tokens:add"]);
+    }).pipe(
+      Effect.provide(layer),
+      Effect.provideService(ConfigProvider.ConfigProvider, ConfigProvider.fromUnknown({}))
+    );
+  });
+
 });

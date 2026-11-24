@@ -1,6 +1,7 @@
 import { getContentstackEndpoint } from "@contentstack/utils";
 import {
   Config,
+  ConfigProvider,
   Effect,
   FileSystem,
   Layer,
@@ -34,6 +35,17 @@ const TokenAlias = Schema.Struct({
 });
 
 const TokenAliases = Schema.Array(TokenAlias);
+const NO_TOKENS_MESSAGE =
+  "No tokens are added. Use auth:tokens:add command to add tokens.";
+
+// CSDX prints startup notices before JSON and plain text for an empty store.
+const tokenAliasesJson = (output: string) => {
+  if (output.split(/\r?\n/u).some((line) => line.trim() === NO_TOKENS_MESSAGE)) {
+    return "[]";
+  }
+  const start = output.indexOf("[");
+  return start < 0 ? output : output.slice(start);
+};
 const TOKEN_REGISTERED_PATTERN =
   /\bSuccessfully (?:added|replaced) the token\b/u;
 const CONFIGURED_REGION_PATTERN =
@@ -106,6 +118,7 @@ const contentstackEndpoint = Effect.fn("ContentstackCli.endpoint")(function* (
 export const contentstackCliLayer = Layer.effect(
   ContentstackCli,
   Effect.gen(function* () {
+    const configProvider = yield* ConfigProvider.ConfigProvider;
     const path = yield* Path.Path;
     const spawner = yield* ChildProcessSpawner.ChildProcessSpawner;
     const fileSystem = yield* FileSystem.FileSystem;
@@ -188,6 +201,7 @@ export const contentstackCliLayer = Layer.effect(
           const suppliedToken = yield* Config.option(
             Config.Redacted("CONTENTSTACK_MANAGEMENT_TOKEN")
           ).pipe(
+            Effect.provideService(ConfigProvider.ConfigProvider, configProvider),
             Effect.mapError(() =>
               aliasError("Invalid private management credentials")
             )
@@ -197,6 +211,7 @@ export const contentstackCliLayer = Layer.effect(
               apiKey: Config.String("CONTENTSTACK_STACK_API_KEY"),
               region: Config.String("CONTENTSTACK_REGION"),
             }).pipe(
+              Effect.provideService(ConfigProvider.ConfigProvider, configProvider),
               Effect.mapError(() =>
                 aliasError(
                   "The private management file needs the stack API key and region"
@@ -260,7 +275,7 @@ export const contentstackCliLayer = Layer.effect(
           ).pipe(
             Effect.flatMap(({ stdout }) =>
               Schema.decodeEffect(Schema.fromJsonString(TokenAliases))(
-                stdout
+                tokenAliasesJson(stdout)
               ).pipe(
                 Effect.mapError(() =>
                   cliError(

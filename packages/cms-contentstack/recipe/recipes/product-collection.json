@@ -32,16 +32,14 @@
           "unique": false
         },
         {
-          "data_type": "json",
+          "data_type": "text",
           "display_name": "Commerce category",
           "field_metadata": {
-            "allow_json_rte": false,
-            "description": "A Commerce category resource identifier."
+            "description": "Optional Commerce category ID; leave empty to show all products."
           },
           "mandatory": false,
           "multiple": false,
-          "non_localizable": true,
-          "reference_to": [],
+          "non_localizable": false,
           "uid": "product_category",
           "unique": false
         },
@@ -72,14 +70,17 @@
             {
               "children": [
                 {
-                  "text": "Connect this block to a Commerce category to feature a curated collection.",
-                  "type": "text"
+                  "text": "Connect this block to a Commerce category to feature a curated collection."
                 }
               ],
-              "type": "p"
+              "type": "p",
+              "attrs": {},
+              "uid": "e1c2954913e377fa"
             }
           ],
-          "type": "doc"
+          "type": "doc",
+          "attrs": {},
+          "uid": "de703e4c0f31deeb"
         },
         "heading": "Featured equipment"
       }
@@ -92,14 +93,17 @@
               {
                 "children": [
                   {
-                    "text": "Associez ce bloc à une catégorie du catalogue pour présenter une sélection d’équipement.",
-                    "type": "text"
+                    "text": "Associez ce bloc à une catégorie du catalogue pour présenter une sélection d’équipement."
                   }
                 ],
-                "type": "p"
+                "type": "p",
+                "attrs": {},
+                "uid": "ab63a82577c95526"
               }
             ],
-            "type": "doc"
+            "type": "doc",
+            "attrs": {},
+            "uid": "8944371dbe336717"
           },
           "heading": "Équipement en vedette"
         }

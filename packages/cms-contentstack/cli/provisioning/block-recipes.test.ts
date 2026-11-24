@@ -85,6 +85,29 @@ describe("Contentstack block recipes", () => {
       first.contentType.match(/dynamic_product_collection/gu)
     ).toHaveLength(1);
     expect(first.entries.match(/dynamic_product_collection/gu)).toHaveLength(1);
+    const materialized = JSON.parse(first.contentType);
+    const components = materialized.schema.find(
+      (field: { uid: string }) => field.uid === "components"
+    );
+    const productBlock = components.blocks.find(
+      (block: { uid: string }) => block.uid === "dynamic_product_collection"
+    );
+    const category = productBlock.schema.find(
+      (field: { uid: string }) => field.uid === "product_category"
+    );
+    expect(category.non_localizable).toBe(false);
+    expect(category.data_type).toBe("text");
+    const materializedEntries = JSON.parse(first.entries);
+    const description = materializedEntries.bltnexthydrahome01.components.find(
+      (block: { dynamic_product_collection?: unknown }) =>
+        block.dynamic_product_collection
+    ).dynamic_product_collection.description;
+    expect(description).toMatchObject({
+      type: "doc",
+      attrs: {},
+      uid: expect.any(String),
+      children: [{ type: "p", attrs: {}, uid: expect.any(String) }],
+    });
     expect(second).toStrictEqual(first);
   });
 });
